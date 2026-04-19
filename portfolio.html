@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SATTEE — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #0d1117;
+      --ink-soft: #3d4451;
+      --ink-muted: #7a8195;
+      --surface: #ffffff;
+      --surface-2: #f7f8fa;
+      --surface-3: #eef0f4;
+      --accent: #1a56db;
+      --accent-light: #e8effe;
+      --accent-text: #1740a8;
+      --gold: #b8860b;
+      --gold-light: #fdf8e7;
+      --border: rgba(0,0,0,0.08);
+      --border-mid: rgba(0,0,0,0.13);
+      --radius: 16px;
+      --radius-sm: 8px;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--surface-2);
+      color: var(--ink);
+      min-height: 100vh;
+    }
+
+    /* ─── HERO ─────────────────────────────────── */
+    .hero {
+      background: var(--ink);
+      color: #fff;
+      padding: 80px 40px 72px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 50% -10%, #1a3a8f 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-inner { position: relative; z-index: 1; max-width: 640px; margin: auto; }
+
+    .hero-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(40px, 7vw, 62px);
+      font-weight: 400;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+
+    .hero-sub {
+      font-size: 13px;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+
+    .hero-tags {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .hero-tag {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      color: rgba(255,255,255,0.7);
+      font-size: 12px;
+      padding: 5px 14px;
+      border-radius: 40px;
+    }
+
+    /* ─── LAYOUT ────────────────────────────────── */
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 60px 28px 80px;
+    }
+
+    .section { margin-bottom: 60px; }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .section-num {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-light);
+      padding: 3px 10px;
+      border-radius: 40px;
+    }
+
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--ink);
+    }
+
+    /* ─── PROJECT CARDS ─────────────────────────── */
+    .projects { display: grid; gap: 16px; }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 30px;
+      position: relative;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      border-color: var(--border-mid);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .card-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--ink);
+      line-height: 1.3;
+    }
+
+    .card-badge {
+      font-size: 11px;
+      font-weight: 500;
+      padding: 4px 12px;
+      border-radius: 40px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .badge-blue { background: var(--accent-light); color: var(--accent-text); }
+    .badge-gray { background: var(--surface-3); color: var(--ink-soft); }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px 24px;
+    }
+
+    @media (max-width: 540px) {
+      .card-grid { grid-template-columns: 1fr; }
+    }
+
+    .card-field { }
+
+    .field-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 4px;
+    }
+
+    .field-value {
+      font-size: 14px;
+      color: var(--ink-soft);
+      line-height: 1.55;
+    }
+
+    .card-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 18px 0;
+    }
+
+    /* ─── SKILLS ─────────────────────────────────── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 540px) {
+      .skills-grid { grid-template-columns: 1fr; }
+    }
+
+    .skill-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px 24px;
+    }
+
+    .skill-card-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 12px;
+    }
+
+    .skill-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .chip {
+      font-size: 12px;
+      background: var(--surface-2);
+      border: 1px solid var(--border-mid);
+      color: var(--ink-soft);
+      padding: 4px 12px;
+      border-radius: 6px;
+    }
+
+    /* ─── AWARD ─────────────────────────────────── */
+    .award-card {
+      background: var(--gold-light);
+      border: 1px solid rgba(184,134,11,0.18);
+      border-radius: var(--radius);
+      padding: 26px 30px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .award-icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(184,134,11,0.12);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .award-icon svg { width: 24px; height: 24px; }
+
+    .award-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 17px;
+      font-weight: 400;
+      color: #7a5800;
+      line-height: 1.3;
+    }
+
+    .award-sub {
+      font-size: 12px;
+      color: #a07010;
+      margin-top: 3px;
+    }
+
+    /* ─── CONTACT ────────────────────────────────── */
+    .contact-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 30px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+    }
+
+    .contact-item { }
+
+    .contact-item-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 5px;
+    }
+
+    .contact-item-value {
+      font-size: 14px;
+      color: var(--ink);
+    }
+
+    .contact-item-value a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    /* ─── FOOTER ─────────────────────────────────── */
+    footer {
+      text-align: center;
+      padding: 28px;
+      font-size: 12px;
+      color: var(--ink-muted);
+      border-top: 1px solid var(--border);
+    }
+
+    /* ─── ANIMATIONS ─────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-inner { animation: fadeUp 0.6s ease both; }
+    .section { animation: fadeUp 0.7s ease both; }
+    .section:nth-child(2) { animation-delay: 0.05s; }
+    .section:nth-child(3) { animation-delay: 0.1s; }
+    .section:nth-child(4) { animation-delay: 0.15s; }
+    .section:nth-child(5) { animation-delay: 0.2s; }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-inner">
+    <p class="hero-label">Portfolio · 2026</p>
+    <h1>Sattee<br><em>Thamthong</em></h1>
+    <p class="hero-sub">สัฏฐี ทำทอง</p>
+    <div class="hero-tags">
+      <span class="hero-tag">UI / UX Design</span>
+      <span class="hero-tag">Python & OpenCV</span>
+      <span class="hero-tag">System Architecture</span>
+      <span class="hero-tag">Flood Intelligence</span>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- EXPERIENCE -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2 class="section-title">Professional Experience</h2>
+    </div>
+
+    <div class="projects">
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">ระบบสื่อสารและเตือนภัยระดับน้ำ</span>
+          <span class="card-badge badge-blue">UX / UI Lead</span>
+        </div>
+        <div class="card-grid">
+          <div class="card-field">
+            <p class="field-label">บทบาท</p>
+            <p class="field-value">ผู้ประสานงานหลัก และนักออกแบบ UI/UX</p>
+          </div>
+          <div class="card-field">
+            <p class="field-label">กลุ่มเป้าหมาย</p>
+            <p class="field-value">เจ้าหน้าที่เทศบาล และประชาชนในพื้นที่เสี่ยง</p>
+          </div>
+        </div>
+        <hr class="card-divider">
+        <div class="card-grid">
+          <div class="card-field">
+            <p class="field-label">คำอธิบาย</p>
+            <p class="field-value">ออกแบบ Dashboard แสดงผลระดับน้ำแบบ Real-time</p>
+          </div>
+          <div class="card-field">
+            <p class="field-label">สิ่งที่ได้เรียนรู้</p>
+            <p class="field-value">การออกแบบ UX และการทำงานกับหน่วยงานภาครัฐ</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Smart Finance, Asset &amp; Debt Management</span>
+          <span class="card-badge badge-gray">Web Designer</span>
+        </div>
+        <div class="card-grid">
+          <div class="card-field">
+            <p class="field-label">บทบาท</p>
+            <p class="field-value">ผู้นำเสนอแนวคิด และออกแบบ Web</p>
+          </div>
+          <div class="card-field">
+            <p class="field-label">กลุ่มเป้าหมาย</p>
+            <p class="field-value">ผู้ใช้งานทั่วไป</p>
+          </div>
+        </div>
+        <hr class="card-divider">
+        <div class="card-grid">
+          <div class="card-field">
+            <p class="field-label">คำอธิบาย</p>
+            <p class="field-value">ระบบจัดการสินทรัพย์และหนี้สินที่เข้าใจง่าย</p>
+          </div>
+          <div class="card-field">
+            <p class="field-label">สิ่งที่ได้เรียนรู้</p>
+            <p class="field-value">การทำงานภายใต้ความกดดัน</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Water Level Detection</span>
+          <span class="card-badge badge-blue">Programmer</span>
+        </div>
+        <div class="card-grid">
+          <div class="card-field">
+            <p class="field-label">เทคโนโลยี</p>
+            <p class="field-value">Python & OpenCV</p>
+          </div>
+          <div class="card-field">
+            <p class="field-label">สิ่งที่ได้เรียนรู้</p>
+            <p class="field-value">Image Processing และ OOP</p>
+          </div>
+        </div>
+        <hr class="card-divider">
+        <div class="card-field">
+          <p class="field-label">การแก้ปัญหา</p>
+          <p class="field-value">ตรวจจับระดับน้ำจากภาพ ลดความผิดพลาดในการอ่านค่า</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Camera-based Flood Alert System</span>
+          <span class="card-badge badge-blue">System Architect & Developer</span>
+        </div>
+        <div class="card-grid">
+          <div class="card-field">
+            <p class="field-label">กลุ่มเป้าหมาย</p>
+            <p class="field-value">ครัวเรือนและหน่วยงานในพื้นที่เสี่ยงอุทกภัย</p>
+          </div>
+          <div class="card-field">
+            <p class="field-label">สิ่งที่ได้เรียนรู้</p>
+            <p class="field-value">ประยุกต์ใช้การประมวลผลภาพกับระบบแจ้งเตือน</p>
+          </div>
+        </div>
+        <hr class="card-divider">
+        <div class="card-field">
+          <p class="field-label">คำอธิบาย</p>
+          <p class="field-value">ออกแบบระบบติดตามและแจ้งเตือนระดับน้ำโดยใช้กล้อง ช่วยให้ผู้ใช้รับรู้สถานการณ์ได้แม้ไม่ได้อยู่หน้างาน</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SELF-DEVELOPMENT -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Self-Development</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <p class="skill-card-label">Technical Skills</p>
+        <div class="skill-chips">
+          <span class="chip">Figma</span>
+          <span class="chip">Java</span>
+          <span class="chip">HTML / CSS</span>
+          <span class="chip">Excel</span>
+          <span class="chip">Python</span>
+          <span class="chip">OpenCV</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <p class="skill-card-label">Workshops & Training</p>
+        <div class="skill-chips">
+          <span class="chip">Generative AI</span>
+          <span class="chip">Cybersecurity</span>
+          <span class="chip">Nuclear Physics</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AWARDS -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Awards</h2>
+    </div>
+    <div class="award-card">
+      <div class="award-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#b8860b" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="8" r="6"/>
+          <path d="M8.21 13.89L7 23l5-3 5 3-1.21-9.12"/>
+        </svg>
+      </div>
+      <div>
+        <p class="award-title">รางวัลชมเชย อันดับ 4</p>
+        <p class="award-sub">Hylife Hackathon 2025</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2 class="section-title">Contact</h2>
+    </div>
+    <div class="contact-card">
+      <div class="contact-item">
+        <p class="contact-item-label">Email</p>
+        <p class="contact-item-value"><a href="mailto:satteemaster@gmail.com">satteemaster@gmail.com</a></p>
+      </div>
+      <div class="contact-item">
+        <p class="contact-item-label">Phone</p>
+        <p class="contact-item-value">062-261-4124</p>
+      </div>
+      <div class="contact-item">
+        <p class="contact-item-label">Facebook</p>
+        <p class="contact-item-value">YURIHUB</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <p>© 2026 Sattee Thamthong · All rights reserved</p>
+</footer>
+
+</body>
+</html>
